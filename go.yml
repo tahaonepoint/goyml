@@ -22,36 +22,8 @@ jobs:
       run:  git config --global url."https://dev-ngeconnect:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com".insteadOf "https://github.com"
     - name: download dependencies
       uses: actions/setup-go@v4
-      with:
-        go-version: ${{ matrix.go-version }}
-        cache-dependency-path: go.sum
-    
-    # - name: Build
-    #   run: go build -v ./...
-    # - name: Build docker image
-    #   run: |
-    #     echo "\n --------------- Building docker image for $GITHUB_REPOSITORY ----------------------------\n"
-    #       export DOCKER_BUILDKIT=1
-    #       echo IMAGE_NAME=genetec_connector >> $GITHUB_ENV
-    #       echo IMAGE_TAG=$(echo ${{github.ref_name}} | sed 's/\//-/g') >> $GITHUB_ENV
-    #       docker build -t crrsmart001.azurecr.io/genetec_connector:$(echo ${{github.ref_name}} | sed 's/\//-/g') .
-    #     echo "\n --------------- Finished building docker image -------------------\n"
-    #   shell: bash
-
-
-
-
+   
 
     - name: Afficher le répertoire courant
       run: |
         echo "Le répertoire courant est : $(pwd)"
-
-    # - name: Launch security pipeline via GitHub API
-    #   env:
-    #     PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Add your GitHub personal access token here
-    #   run: |
-    #    curl -X POST \
-    #       -H "Authorization: Bearer $PERSONAL_ACCESS_TOKEN" \
-    #       -H "Accept: application/vnd.github.v3+json" \
-    #       -d '{"ref":"refs/heads/AppSec", "inputs": {"repository": "ngeconnect/genetec_connector"}}' \
-    #       https://api.github.com/repos/ngeconnect/rsmart-services/actions/workflows/pipeline_sec2.yml/dispatches
