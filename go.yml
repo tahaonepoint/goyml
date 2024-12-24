@@ -1,9 +1,7 @@
 name: Go
 
 on:
-  push:
-    branches:
-      - 'AppSec'
+  workflow_dispatch:
 
 env:
   GOPRIVATE: "github.com/ngeconnect"
