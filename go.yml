@@ -10,3 +10,34 @@ steps:
   - name: Afficher le répertoire courant
     run: |
       echo "Le répertoire courant est : $(pwd)"
+
+  - name: Run Gosec Security Scanner
+    uses: securego/gosec@master
+    with:
+      args: '-no-fail -fmt sarif -out results.sarif ./...'
+
+
+  - name: Upload Gosec SARIF report
+    uses: actions/upload-artifact@v3
+    with:
+      name: GoSec-report
+      path: results.sarif
+
+
+  - name: Install Semgrep
+    run: |
+        pip install semgrep
+    
+
+  - name: Run Semgrep Scan
+    run: |
+        semgrep scan --config auto --json -o semgrep.json
+        echo "Archiving Semgrep report"
+        mkdir -p ./semgrep
+        mv semgrep.json ./semgrep/
+ 
+  - name: Upload Semgrep report
+    uses: actions/upload-artifact@v3
+    with:
+      name:  "Semgrep-report"
+      path: ./semgrep/semgrep.json
