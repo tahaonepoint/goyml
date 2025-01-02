@@ -11,6 +11,30 @@ steps:
     run: |
       echo "Le répertoire courant est : $(pwd)"
 
+
+
+
+  - name: Setup Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: '16' 
+
+
+  - name: download dependencies
+    uses: actions/setup-go@v4
+    with:
+      go-version: ${{ matrix.go-version }}
+      cache-dependency-path: ${{ matrix.path }}/go.sum
+
+
+
+
+
+
+
+
+      
+
   - name: Run Gosec Security Scanner
     uses: securego/gosec@master
     with:
