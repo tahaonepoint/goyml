@@ -1,0 +1,27 @@
+name: Go
+
+on:
+  workflow_dispatch:
+
+env:
+  GOPRIVATE: "github.com/ngeconnect"
+
+jobs:
+  build_test:
+    strategy:
+      matrix:
+        go-version: [1.22.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup github token
+      run:  git config --global url."https://dev-ngeconnect:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com".insteadOf "https://github.com"
+    - name: download dependencies
+      uses: actions/setup-go@v4
+   
+
+    - name: Afficher le répertoire courant
+      run: |
+        echo "Le répertoire courant est : $(pwd)"
